@@ -58,7 +58,7 @@ lazy_static::lazy_static! {
     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
     pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
-    pub static ref APP_NAME: RwLock<String> = RwLock::new("BoxfulRustDesk".to_owned());
+    pub static ref APP_NAME: RwLock<String> = RwLock::new("RustDesk".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
@@ -66,7 +66,8 @@ lazy_static::lazy_static! {
     // pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("whitelist".to_owned(), "61.222.27.27".to_owned());
+        map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
+        map.insert("enable-remote-printer".to_owned(), "N".to_owned()); // 關閉印表機功能
         RwLock::new(map)
     };
 
@@ -78,6 +79,7 @@ lazy_static::lazy_static! {
     pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
         map.insert("enable-check-update".to_owned(), "N".to_owned()); // 停用檢查新版本
+        map.insert("theme".to_owned(), "dark".to_owned()); // 主題設定
 
         RwLock::new(map)
     };
@@ -87,7 +89,9 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         map.insert("conn-type".to_owned(), "incoming".to_owned());  // 只允許被連入
         map.insert("disable-installation".to_owned(), "Y".to_owned()); // 禁止安裝
-        map.insert("disable-settings".to_owned(), "N".to_owned()); // 禁止設定
+        map.insert("disable-settings".to_owned(), "Y".to_owned()); // 禁止設定
+        map.insert("disable-ab".to_owned(), "Y".to_owned()); // 禁止AB測試
+        map.insert("disable-account".to_owned(), "Y".to_owned()); // 禁止帳號
         RwLock::new(map)
     };
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
