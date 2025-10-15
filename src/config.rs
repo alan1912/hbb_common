@@ -67,6 +67,11 @@ lazy_static::lazy_static! {
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
         map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
+        map.insert("enable-hwcodec".to_owned(), "Y".to_owned()); // 固定啟用硬體編解碼器
+        map.insert("enable-abr".to_owned(), "Y".to_owned()); // 固定啟用自適應位元速率
+        map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned()); // 固定關閉自動錄製連入
+        map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
+        map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
         RwLock::new(map)
     };
 
@@ -98,12 +103,6 @@ lazy_static::lazy_static! {
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
         map.insert("hide-remote-printer-settings".to_owned(), "Y".to_owned()); // 隱藏印表機設定分頁
-        map.insert("enable-hwcodec".to_owned(), "Y".to_owned()); // 固定啟用硬體編解碼器
-        map.insert("enable-abr".to_owned(), "Y".to_owned()); // 固定啟用自適應位元速率
-        map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned()); // 固定關閉自動錄製連入
-        map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
-        map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
-        map.insert("audio-input".to_owned(), "".to_owned()); // 固定音訊輸入裝置為系統預設
         RwLock::new(map)
     };
 }
