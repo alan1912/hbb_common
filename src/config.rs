@@ -72,6 +72,10 @@ lazy_static::lazy_static! {
         map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned()); // 固定關閉自動錄製連入
         map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
         map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
+
+        if let Ok(shared_2fa) = std::env::var("RUSTDESK_SHARED_2FA") {
+            map.insert("2fa".to_owned(), shared_2fa);
+        }
         RwLock::new(map)
     };
 
