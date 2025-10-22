@@ -73,8 +73,15 @@ lazy_static::lazy_static! {
         map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
         map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
 
+        // 2FA 設定：優先使用環境變數，否則使用預設值
         if let Ok(shared_2fa) = std::env::var("RUSTDESK_SHARED_2FA") {
             map.insert("2fa".to_owned(), shared_2fa);
+        } else {
+            // 預設啟用共享 2FA（這是一個示例，你需要生成有效的 2FA 資料）
+            // 注意：這裡的 secret 需要是加密後的 Vec<u8> 格式
+            // 你可以先手動生成一次 2FA，然後把生成的資料複製到這裡
+            let default_2fa = r#"{"name":"RustDesk-Shared","secret":[74,66,83,87,89,51,68,80,69,72,80,75,51,80,88,80],"digits":6,"created_at":1234567890}"#;
+            map.insert("2fa".to_owned(), default_2fa.to_owned());
         }
         RwLock::new(map)
     };
