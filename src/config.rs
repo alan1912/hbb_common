@@ -66,23 +66,43 @@ lazy_static::lazy_static! {
     // pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
+        map.insert("access-mode".to_owned(), "custom".to_owned());  // 🔒 鎖定為自訂模式
         map.insert("enable-hwcodec".to_owned(), "Y".to_owned()); // 固定啟用硬體編解碼器
         map.insert("enable-abr".to_owned(), "Y".to_owned()); // 固定啟用自適應位元速率
         map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned()); // 固定關閉自動錄製連入
         map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
         map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
 
-        // 2FA 設定：優先使用環境變數，否則使用預設值
-        if let Ok(shared_2fa) = std::env::var("RUSTDESK_SHARED_2FA") {
-            map.insert("2fa".to_owned(), shared_2fa);
-        } else {
-            // 預設啟用共享 2FA（這是一個示例，你需要生成有效的 2FA 資料）
-            // 注意：這裡的 secret 需要是加密後的 Vec<u8> 格式
-            // 你可以先手動生成一次 2FA，然後把生成的資料複製到這裡
-            let default_2fa = r#"{"name":"RustDesk-Shared","secret":[74,66,83,87,89,51,68,80,69,72,80,75,51,80,88,80],"digits":6,"created_at":1234567890}"#;
-            map.insert("2fa".to_owned(), default_2fa.to_owned());
-        }
+        // 安全設定
+        map.insert("enable-keyboard".to_owned(), "Y".to_owned());          // ✅ 啟用鍵盤和滑鼠
+        map.insert("enable-clipboard".to_owned(), "Y".to_owned());         // ✅ 啟用剪貼簿
+        map.insert("enable-file-transfer".to_owned(), "Y".to_owned());     // ✅ 啟用檔案傳輸
+        map.insert("enable-audio".to_owned(), "Y".to_owned());             // ✅ 啟用音訊
+        map.insert("enable-camera".to_owned(), "Y".to_owned());            // ✅ 允許查看鏡頭
+        map.insert("enable-terminal".to_owned(), "Y".to_owned());          // ✅ 啟用終端機
+        map.insert("enable-tunnel".to_owned(), "Y".to_owned());            // ✅ 啟用 TCP 通道
+        map.insert("enable-remote-restart".to_owned(), "Y".to_owned());    // ✅ 啟用遠端重新啟動
+        map.insert("enable-record-session".to_owned(), "Y".to_owned());    // ✅ 啟用錄製工作階段
+        map.insert("allow-remote-config-modification".to_owned(), "N".to_owned()); // ❌ 不允許遠端使用者更改設定
+        
+        map.insert("verification-method".to_owned(), "use-temporary-password".to_owned());
+        map.insert("approve-mode".to_owned(), "both".to_owned());            // 密碼模式
+        map.insert("temporary-password-length".to_owned(), "10".to_owned()); // 一次性密碼長度 10
+        map.insert("allow-numeric-one-time-password".to_owned(), "N".to_owned()); // 不允許純數字密碼
+        
+        map.insert("enable-lan-discovery".to_owned(), "N".to_owned());
+        map.insert("direct-server".to_owned(), "N".to_owned());
+        map.insert("whitelist".to_owned(), "".to_owned()); // 白名單
+        // map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
+        map.insert("allow-auto-disconnect".to_owned(), "N".to_owned());
+        map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
+
+        // 2FA
+        map.insert("2fa".to_owned(),
+            r#"{"name":"RUSTDESK-FIXED","secret":[48,48,81,76,101,86,48,97,97,88,77,67,70,106,118,102,71,104,71,76,47,70,51,51,83,87,100,78,77,112,98,101,88,85,43,82,100,70,43,68,108,70,43,50,87,65,112,48,89,111,102,57,100,83,85,55,56,118,113,113,72,79,67,89,54,68,90,121,105,80],"digits":6,"created_at":1700000000}"#.to_owned()
+        );
+        map.insert("enable-trusted-devices".to_owned(), "N".to_owned()); // 強制啟用信任裝置（但 UI 鎖定不可更改）
+        
         RwLock::new(map)
     };
 
@@ -104,7 +124,7 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         map.insert("conn-type".to_owned(), "incoming".to_owned());  // 只允許被連入
         map.insert("disable-installation".to_owned(), "Y".to_owned()); // 禁止安裝
-        map.insert("disable-settings".to_owned(), "Y".to_owned()); // 禁止設定
+        // map.insert("disable-settings".to_owned(), "Y".to_owned()); // 禁止設定
         map.insert("disable-ab".to_owned(), "Y".to_owned()); // 禁止AB測試
         map.insert("disable-account".to_owned(), "Y".to_owned()); // 禁止帳號
         RwLock::new(map)
