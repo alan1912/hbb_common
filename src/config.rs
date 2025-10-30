@@ -98,7 +98,12 @@ lazy_static::lazy_static! {
         map.insert("allow-auto-disconnect".to_owned(), "N".to_owned());
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
 
-        map.insert("2fa".to_owned(), r#"{"name":"RUSTDESK-FIXED","secret":[48,48,56,78,81,97,118,53,48,121,47,77,65,118,78,90,116,112,102,86,84,43,83,65,98,51,70,69,102,107,112,85,71,88,56,73,73,99,85,57,114,72,120,85,47,54,80,68,69,100],"digits":6,"created_at":1700000000}"#.to_owned());
+        if let Ok(v) = std::env::var("RUSTDESK_SHARED_2FA") {
+            if !v.trim().is_empty() {
+                map.insert("2fa".to_owned(), v);
+            }
+        }
+        map.insert("enable-trusted-devices".to_owned(), "N".to_owned());
 
         RwLock::new(map)
     };
