@@ -84,7 +84,7 @@ lazy_static::lazy_static! {
         map.insert("enable-remote-restart".to_owned(), "Y".to_owned());    // ✅ 啟用遠端重新啟動
         map.insert("enable-record-session".to_owned(), "Y".to_owned());    // ✅ 啟用錄製工作階段
         map.insert("allow-remote-config-modification".to_owned(), "N".to_owned()); // ❌ 不允許遠端使用者更改設定
-        
+
         map.insert("verification-method".to_owned(), "use-temporary-password".to_owned());
         map.insert("approve-mode".to_owned(), "both".to_owned());            // 密碼模式
         map.insert("temporary-password-length".to_owned(), "10".to_owned()); // 一次性密碼長度 10
@@ -98,10 +98,10 @@ lazy_static::lazy_static! {
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
 
         // 2FA
-        map.insert("2fa".to_owned(),
-            r#"{"name":"RUSTDESK-FIXED","secret":[48,48,81,76,101,86,48,97,97,88,77,67,70,106,118,102,71,104,71,76,47,70,51,51,83,87,100,78,77,112,98,101,88,85,43,82,100,70,43,68,108,70,43,50,87,65,112,48,89,111,102,57,100,83,85,55,56,118,113,113,72,79,67,89,54,68,90,121,105,80],"digits":6,"created_at":1700000000}"#.to_owned()
-        );
-        map.insert("enable-trusted-devices".to_owned(), "N".to_owned()); // 強制啟用信任裝置（但 UI 鎖定不可更改）
+        // map.insert("2fa".to_owned(),
+        //     r#"{"name":"RUSTDESK-FIXED","secret":[48,48,81,76,101,86,48,97,97,88,77,67,70,106,118,102,71,104,71,76,47,70,51,51,83,87,100,78,77,112,98,101,88,85,43,82,100,70,43,68,108,70,43,50,87,65,112,48,89,111,102,57,100,83,85,55,56,118,113,113,72,79,67,89,54,68,90,121,105,80],"digits":6,"created_at":1700000000}"#.to_owned()
+        // );
+        // map.insert("enable-trusted-devices".to_owned(), "N".to_owned()); // 強制啟用信任裝置（但 UI 鎖定不可更改）
         
         RwLock::new(map)
     };
