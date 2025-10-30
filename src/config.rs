@@ -98,11 +98,6 @@ lazy_static::lazy_static! {
         map.insert("allow-auto-disconnect".to_owned(), "N".to_owned());
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
 
-        if let Ok(v) = std::env::var("RUSTDESK_SHARED_2FA") {
-            if !v.trim().is_empty() {
-                map.insert("2fa".to_owned(), v);
-            }
-        }
         map.insert("enable-trusted-devices".to_owned(), "N".to_owned());
 
         RwLock::new(map)
