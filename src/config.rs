@@ -66,38 +66,37 @@ lazy_static::lazy_static! {
     // pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("access-mode".to_owned(), "custom".to_owned());  // 🔒 鎖定為自訂模式
-        map.insert("enable-hwcodec".to_owned(), "Y".to_owned()); // 固定啟用硬體編解碼器
-        map.insert("enable-abr".to_owned(), "Y".to_owned()); // 固定啟用自適應位元速率
-        map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned()); // 固定關閉自動錄製連入
-        map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned()); // 固定關閉自動錄製連出
-        map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned()); // 固定關閉移除桌布
+        map.insert("access-mode".to_owned(), "custom".to_owned());                         // 鎖定為自訂模式
+        map.insert("enable-hwcodec".to_owned(), "Y".to_owned());                           // 固定啟用硬體編解碼器
+        map.insert("enable-abr".to_owned(), "Y".to_owned());                               // 固定啟用自適應位元速率
+        map.insert("allow-auto-record-incoming".to_owned(), "N".to_owned());               // 固定關閉自動錄製連入
+        map.insert("allow-auto-record-outgoing".to_owned(), "N".to_owned());               // 固定關閉自動錄製連出
+        map.insert("allow-remove-wallpaper".to_owned(), "N".to_owned());                   // 固定關閉移除桌布
 
         // 安全設定
-        map.insert("enable-keyboard".to_owned(), "Y".to_owned());          // ✅ 啟用鍵盤和滑鼠
-        map.insert("enable-clipboard".to_owned(), "Y".to_owned());         // ✅ 啟用剪貼簿
-        map.insert("enable-file-transfer".to_owned(), "Y".to_owned());     // ✅ 啟用檔案傳輸
-        map.insert("enable-audio".to_owned(), "Y".to_owned());             // ✅ 啟用音訊
-        map.insert("enable-camera".to_owned(), "Y".to_owned());            // ✅ 允許查看鏡頭
-        map.insert("enable-terminal".to_owned(), "Y".to_owned());          // ✅ 啟用終端機
-        map.insert("enable-tunnel".to_owned(), "Y".to_owned());            // ✅ 啟用 TCP 通道
-        map.insert("enable-remote-restart".to_owned(), "Y".to_owned());    // ✅ 啟用遠端重新啟動
-        map.insert("enable-record-session".to_owned(), "Y".to_owned());    // ✅ 啟用錄製工作階段
-        map.insert("enable-remote-printer".to_owned(), "N".to_owned());    // 🔒 鎖定遠端列印為關閉
-        map.insert("enable-block-input".to_owned(), "N".to_owned());       // 🔒 鎖定允許封鎖使用者輸入為關閉
-        map.insert("allow-remote-config-modification".to_owned(), "N".to_owned()); // ❌ 不允許遠端使用者更改設定
+        map.insert("enable-keyboard".to_owned(), "Y".to_owned());                          // 啟用鍵盤和滑鼠
+        map.insert("enable-clipboard".to_owned(), "Y".to_owned());                         // 啟用剪貼簿
+        map.insert("enable-file-transfer".to_owned(), "Y".to_owned());                     // 啟用檔案傳輸
+        map.insert("enable-audio".to_owned(), "Y".to_owned());                             // 啟用音訊
+        map.insert("enable-camera".to_owned(), "Y".to_owned());                            // 允許查看鏡頭
+        map.insert("enable-terminal".to_owned(), "Y".to_owned());                          // 啟用終端機
+        map.insert("enable-tunnel".to_owned(), "Y".to_owned());                            // 啟用 TCP 通道
+        map.insert("enable-remote-restart".to_owned(), "Y".to_owned());                    // 啟用遠端重新啟動
+        map.insert("enable-record-session".to_owned(), "Y".to_owned());                    // 啟用錄製工作階段
+        map.insert("enable-remote-printer".to_owned(), "N".to_owned());                    // 鎖定遠端列印為關閉
+        map.insert("enable-block-input".to_owned(), "N".to_owned());                       // 鎖定允許封鎖使用者輸入為關閉
+        map.insert("allow-remote-config-modification".to_owned(), "N".to_owned());         // 不允許遠端使用者更改設定
 
         map.insert("verification-method".to_owned(), "use-temporary-password".to_owned());
-        map.insert("approve-mode".to_owned(), "both".to_owned());            // 密碼模式
-        map.insert("temporary-password-length".to_owned(), "10".to_owned()); // 一次性密碼長度 10
-        map.insert("allow-numeric-one-time-password".to_owned(), "N".to_owned()); // 不允許純數字密碼
+        map.insert("approve-mode".to_owned(), "both".to_owned());                          // 密碼模式
+        map.insert("temporary-password-length".to_owned(), "10".to_owned());               // 一次性密碼長度 10
+        map.insert("allow-numeric-one-time-password".to_owned(), "N".to_owned());          // 不允許純數字密碼
 
         map.insert("enable-lan-discovery".to_owned(), "N".to_owned());
         map.insert("direct-server".to_owned(), "N".to_owned());
-        // map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
+        map.insert("whitelist".to_owned(), "61.222.27.27".to_owned());                     // 白名單
         map.insert("allow-auto-disconnect".to_owned(), "N".to_owned());
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
-
         map.insert("enable-trusted-devices".to_owned(), "N".to_owned());
 
         RwLock::new(map)
@@ -110,8 +109,8 @@ lazy_static::lazy_static! {
     // pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("enable-check-update".to_owned(), "N".to_owned()); // 停用檢查新版本
-        map.insert("theme".to_owned(), "dark".to_owned()); // 主題設定
+        map.insert("enable-check-update".to_owned(), "N".to_owned());                      // 停用檢查新版本
+        map.insert("theme".to_owned(), "dark".to_owned());                                 // 主題設定
 
         RwLock::new(map)
     };
@@ -119,18 +118,17 @@ lazy_static::lazy_static! {
     // pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("conn-type".to_owned(), "incoming".to_owned());  // 只允許被連入
-        map.insert("disable-installation".to_owned(), "Y".to_owned()); // 禁止安裝
-        // map.insert("disable-settings".to_owned(), "Y".to_owned()); // 禁止設定
-        map.insert("disable-ab".to_owned(), "Y".to_owned()); // 禁止AB測試
-        map.insert("disable-account".to_owned(), "Y".to_owned()); // 禁止帳號
+        map.insert("conn-type".to_owned(), "incoming".to_owned());                          // 只允許被連入
+        map.insert("disable-installation".to_owned(), "Y".to_owned());                      // 禁止安裝
+        map.insert("disable-ab".to_owned(), "Y".to_owned());                                // 禁止AB測試
+        map.insert("disable-account".to_owned(), "Y".to_owned());                           // 禁止帳號
         RwLock::new(map)
     };
 
     // pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
-        map.insert("hide-remote-printer-settings".to_owned(), "Y".to_owned()); // 隱藏印表機設定分頁
+        map.insert("hide-remote-printer-settings".to_owned(), "Y".to_owned());              // 隱藏印表機設定分頁
         RwLock::new(map)
     };
 }
