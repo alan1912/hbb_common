@@ -83,26 +83,23 @@ lazy_static::lazy_static! {
         map.insert("enable-tunnel".to_owned(), "Y".to_owned());            // ✅ 啟用 TCP 通道
         map.insert("enable-remote-restart".to_owned(), "Y".to_owned());    // ✅ 啟用遠端重新啟動
         map.insert("enable-record-session".to_owned(), "Y".to_owned());    // ✅ 啟用錄製工作階段
+        map.insert("enable-remote-printer".to_owned(), "N".to_owned());    // 🔒 鎖定遠端列印為關閉
+        map.insert("enable-block-input".to_owned(), "N".to_owned());       // 🔒 鎖定允許封鎖使用者輸入為關閉
         map.insert("allow-remote-config-modification".to_owned(), "N".to_owned()); // ❌ 不允許遠端使用者更改設定
 
         map.insert("verification-method".to_owned(), "use-temporary-password".to_owned());
         map.insert("approve-mode".to_owned(), "both".to_owned());            // 密碼模式
         map.insert("temporary-password-length".to_owned(), "10".to_owned()); // 一次性密碼長度 10
         map.insert("allow-numeric-one-time-password".to_owned(), "N".to_owned()); // 不允許純數字密碼
-        
+
         map.insert("enable-lan-discovery".to_owned(), "N".to_owned());
         map.insert("direct-server".to_owned(), "N".to_owned());
-        map.insert("whitelist".to_owned(), "".to_owned()); // 白名單
         // map.insert("whitelist".to_owned(), "61.222.27.27".to_owned()); // 白名單
         map.insert("allow-auto-disconnect".to_owned(), "N".to_owned());
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
 
-        // 2FA
-        // map.insert("2fa".to_owned(),
-        //     r#"{"name":"RUSTDESK-FIXED","secret":[48,48,81,76,101,86,48,97,97,88,77,67,70,106,118,102,71,104,71,76,47,70,51,51,83,87,100,78,77,112,98,101,88,85,43,82,100,70,43,68,108,70,43,50,87,65,112,48,89,111,102,57,100,83,85,55,56,118,113,113,72,79,67,89,54,68,90,121,105,80],"digits":6,"created_at":1700000000}"#.to_owned()
-        // );
-        // map.insert("enable-trusted-devices".to_owned(), "N".to_owned()); // 強制啟用信任裝置（但 UI 鎖定不可更改）
-        
+        map.insert("2fa".to_owned(), r#"{"name":"RUSTDESK-FIXED","secret":[48,48,56,78,81,97,118,53,48,121,47,77,65,118,78,90,116,112,102,86,84,43,83,65,98,51,70,69,102,107,112,85,71,88,56,73,73,99,85,57,114,72,120,85,47,54,80,68,69,100],"digits":6,"created_at":1700000000}"#.to_owned());
+
         RwLock::new(map)
     };
 
