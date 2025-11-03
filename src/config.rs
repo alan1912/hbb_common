@@ -99,6 +99,23 @@ lazy_static::lazy_static! {
         map.insert("auto-disconnect-timeout".to_owned(), "10".to_owned());
         map.insert("enable-trusted-devices".to_owned(), "N".to_owned());
 
+        // 🔒 鎖定 ID Server / Relay Server / Key
+        if let Some(v) = option_env!("RUSTDESK_ID_SERVER") {
+            if !v.trim().is_empty() {
+                map.insert("custom-rendezvous-server".to_owned(), v.to_owned());
+            }
+        }
+        if let Some(v) = option_env!("RUSTDESK_RELAY_SERVER") {
+            if !v.trim().is_empty() {
+                map.insert("relay-server".to_owned(), v.to_owned());
+            }
+        }
+        if let Some(v) = option_env!("RUSTDESK_KEY") {
+            if !v.trim().is_empty() {
+                map.insert("key".to_owned(), v.to_owned());
+            }
+        }
+
         RwLock::new(map)
     };
 
